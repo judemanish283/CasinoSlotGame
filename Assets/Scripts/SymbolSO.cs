@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using SymbolInfo;
 
-public class SymbolImage : MonoBehaviour
+[CreateAssetMenu(fileName ="Symbol")]
+public class SymbolSO : ScriptableObject
 {
     public eSymbolType SymbolType;
+    public Sprite symbolSprite;
+    public int symbolVal;
 }

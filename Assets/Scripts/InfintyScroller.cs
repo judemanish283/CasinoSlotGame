@@ -14,15 +14,15 @@ public class InfintyScroller : MonoBehaviour
     public float scrollDuration = 5f; // Duration of the scrolling in seconds.
 
     private bool isScrolling = false;
-    [SerializeField] Button spinBtn;
+    //[SerializeField] Button spinBtn;
 
     public float maxSnapPositionY = 1220f; // Maximum Y position for snapping.
     public float snapInterval = 245f; // The interval to snap to.
 
     private void Start()
     {
-        spinBtn.onClick.AddListener(() => StartScrolling());
-        StartScrolling();
+        //spinBtn.onClick.AddListener(() => StartScrolling());
+        //StartScrolling();
     }
     void Update()
     {
@@ -47,34 +47,30 @@ public class InfintyScroller : MonoBehaviour
         }
     }
 
-    public void StartScrolling()
+    public IEnumerator ScrollForDuration(float duration)
     {
+        float randScrollSpeed = Random.Range(300, scrollSpeed);
         if (!isScrolling)
         {
-            StartCoroutine(ScrollForDuration(scrollDuration));
+            isScrolling = true;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                content.anchoredPosition += new Vector2(0, randScrollSpeed * Time.deltaTime);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            //Debug.Log("Position before snap " + content.anchoredPosition.y);
+
+            isScrolling = false;
+            SnapToPosition();
         }
-    }
-
-    private IEnumerator ScrollForDuration(float duration)
-    {
-        isScrolling = true;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            content.anchoredPosition += new Vector2(0, scrollSpeed * Time.deltaTime);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        Debug.Log("Position before snap " + content.anchoredPosition.y);
-
-        isScrolling = false;
-        SnapToPosition();
     }
 
     private void SnapToPosition()
     {
-        Debug.Log("SNAPPING");
+        //Debug.Log("SNAPPING");
         // Get the current Y position.
         float currentY = content.anchoredPosition.y;
 
@@ -84,7 +80,7 @@ public class InfintyScroller : MonoBehaviour
 
         // Set the snapped position.
         content.anchoredPosition = new Vector2(content.anchoredPosition.x, snappedY);
-        Debug.Log("After snap " + content.anchoredPosition.y + ",,," + snappedY);
+        //Debug.Log("After snap " + content.anchoredPosition.y + ",,," + snappedY);
     }
 
 }
