@@ -1573,7 +1573,8 @@ MonoBehaviour:
   - {fileID: 822606575}
   SpinBtn: {fileID: 1057725074}
   imageObj: {fileID: 9170659294236790223, guid: 19fd9e79eb48dd742952f370a922d36f, type: 3}
-  scrollDuration: 3
+  MaxscrollDuration: 3
+  MinscrollDuration: 3
 --- !u!4 &796917355
 Transform:
   m_ObjectHideFlags: 0
@@ -2202,7 +2203,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 5.999817, y: 0}
+  m_AnchoredPosition: {x: 5.999878, y: 0}
   m_SizeDelta: {x: 223.302, y: 223.302}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &1079670982
