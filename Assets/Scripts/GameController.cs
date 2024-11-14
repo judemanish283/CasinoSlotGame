@@ -56,19 +56,28 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(spinDuration);
         }
         yield return new WaitForSeconds(1f);
-        CheckPaylines(ReturnConsideredSymbols());
+       ReturnConsideredSymbols();
     }
 
     List<GameObject> ReturnConsideredSymbols()
     {
-        //for (int i = 0; i < symbolsRows.Count; i++)
+        foreach(var row in symbolsRows)
+        {
+
+        }
+
+
+        //for (int i = 0; i < 5; i++)
         //{  // Loop through the rows
-        //    for (int j = 0; j < 5; j++)
+        //    Debug.Log("i");
+        //    for (int j = 0; j < 3; j++)
         //    {  // Loop through the columns
+        //        Debug.Log("j"); 
         //       // Instantiate a new GameObject and assign it to the array at position (i, j)
-        //        _ConsidSymb[i, j] = symbolsRows[i].content.GetChild()
+        //        _ConsidSymb[i, j] = symbolsRows[i].content.GetChild(j).gameObject;
         //    }
         //}
+        Debug.Log("Number of items is : " + _ConsidSymb.Length + "should be 15");
 
         foreach (var row in symbolsRows)
         {

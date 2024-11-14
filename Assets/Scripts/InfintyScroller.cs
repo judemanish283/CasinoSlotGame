@@ -21,8 +21,7 @@ public class InfintyScroller : MonoBehaviour
 
     private void Start()
     {
-        //spinBtn.onClick.AddListener(() => StartScrolling());
-        //StartScrolling();
+       
     }
     void Update()
     {
