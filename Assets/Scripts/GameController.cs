@@ -9,23 +9,29 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
+using Unity.Collections;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] List<SymbolSO> symbols;
     [SerializeField] List<InfintyScroller> symbolsRows;
 
+    [SerializeField] int NumberofPaylines = 2;
+
     [SerializeField]
-    List<List<int>> paylines = new List<List<int>>
+    List<int[,]> paylines = new List<int[,]> 
     {
-        new List<int> { 5,5,5,5,5}
+        new int[5, 2] { { 0, 1 }, { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 1 } },
+        new int[5, 2] { { 0, 0 }, { 1, 0 }, { 2, 1 }, { 3, 2 }, { 4, 2 } },
+         new int[5, 2] { { 0, 1 }, { 1, 2 }, { 2, 1 }, { 3, 0 }, { 4, 1 } }
+         //new int[5, 2] { { 1, 2 }, { 3, 4 }, { 1, 2 }, { 3, 4 }, { 1, 2 } }
     };
     [SerializeField] Button SpinBtn;
     [SerializeField] int[,] multiDimensionalArray1 ;
     [SerializeField] GameObject imageObj;
     [SerializeField] float MaxscrollDuration = 5f;
     [SerializeField] float MinscrollDuration = 3f;
-    List<GameObject> ConsideredSymbols = new List<GameObject>();
+    [SerializeField] LineRenderer lineRenderer;
     [SerializeField] GameObject[,] _ConsidSymb = new GameObject[5,3];
 
     // This is the co-odinates by which the symbols are stored
@@ -65,10 +71,10 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(spinDuration);
         }
         yield return new WaitForSeconds(1f);
-        ReturnConsideredSymbols();
+        StartCoroutine(CheckPaylines(ReturnConsideredSymbols()));
     }
 
-    List<GameObject> ReturnConsideredSymbols()
+    GameObject[,] ReturnConsideredSymbols()
     {
         int row = 0;
         int column = 0;
@@ -96,19 +102,45 @@ public class GameController : MonoBehaviour
             }
         }
 
-        Debug.Log("Number of items is : " + _ConsidSymb.Length + "should be 15");
-        Debug.Log("4,1 game object name is : " + _ConsidSymb[4,1].gameObject.name, _ConsidSymb[4,1].gameObject);
-        Debug.Log("4,2 game object name is : " + _ConsidSymb[4,2].gameObject.name, _ConsidSymb[4,2].gameObject);
-        Debug.Log("3,2 game object name is : " + _ConsidSymb[3,2].gameObject.name, _ConsidSymb[3,2].gameObject);
-        Debug.Log("3,1 game object name is : " + _ConsidSymb[3,1].gameObject.name, _ConsidSymb[3,1].gameObject);
+        // Debug.Log("Number of items is : " + _ConsidSymb.Length + "should be 15");
+        // Debug.Log("4,1 game object name is : " + _ConsidSymb[4,1].gameObject.name, _ConsidSymb[4,1].gameObject);
+        // Debug.Log("4,2 game object name is : " + _ConsidSymb[4,2].gameObject.name, _ConsidSymb[4,2].gameObject);
+        // Debug.Log("3,2 game object name is : " + _ConsidSymb[3,2].gameObject.name, _ConsidSymb[3,2].gameObject);
+        // Debug.Log("3,1 game object name is : " + _ConsidSymb[3,1].gameObject.name, _ConsidSymb[3,1].gameObject);
         
 
-        return ConsideredSymbols;
+        return _ConsidSymb;
     }
 
-    void CheckPaylines(List<GameObject> symbolsToCheck)
+    IEnumerator CheckPaylines(GameObject[,] symbolsToCheck)
     {
-        foreach (var row in symbolsRows) { }
+        foreach (var line in paylines) 
+        {
+            lineRenderer.positionCount = 0;
+
+            // Set the position count of the LineRenderer to the number of objects in the current payline
+            lineRenderer.positionCount = line.GetLength(0);
+
+            for (int i = 0; i < line.GetLength(0); i++) // Loop through rows in the line
+            {
+                int x = line[i, 0];  // X-coordinate
+                int y = line[i, 1];  // Y-coordinate
+
+                Vector3 objectPosition = symbolsToCheck[x, y].transform.position;
+
+                // Set the position for the LineRenderer
+                lineRenderer.SetPosition(i, objectPosition);
+
+                // Get the object at (x, y)
+                Debug.Log("symbol is : " + symbolsToCheck[x, y].GetComponent<SymbolImage>().SymbolType.ToString());
+                
+                yield return new WaitForSeconds(0.5f);
+                symbolsToCheck[x,y].GetComponent<Image>().color = Color.white;
+
+            }
+
+            Debug.Log("Next Payline");
+        }
     }
 }
 
