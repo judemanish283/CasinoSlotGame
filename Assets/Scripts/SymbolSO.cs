@@ -6,7 +6,8 @@ using SymbolInfo;
 [CreateAssetMenu(fileName ="Symbol")]
 public class SymbolSO : ScriptableObject
 {
-    public eSymbolType SymbolType;
-    public Sprite symbolSprite;
-    public int symbolVal;
+    public SymbolData symbolData;
+    //public eSymbolType SymbolType;
+    //public Sprite symbolSprite;
+    //public int symbolVal;
 }

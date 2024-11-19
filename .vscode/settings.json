@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "CasinoSlotGame.sln"
+    "dotnet.defaultSolution": "CasinoSlotGame.sln",
+    "dotnet.preferCSharpExtension": true
 }

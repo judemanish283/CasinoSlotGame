@@ -19,6 +19,8 @@ public class InfintyScroller : MonoBehaviour
     public float maxSnapPositionY = 1220f; // Maximum Y position for snapping.
     public float snapInterval = 245f; // The interval to snap to.
 
+    
+
     private void Start()
     {
        
@@ -48,7 +50,7 @@ public class InfintyScroller : MonoBehaviour
 
     public IEnumerator ScrollForDuration(float duration)
     {
-        float randScrollSpeed = Random.Range(300, scrollSpeed);
+        float randScrollSpeed = Random.Range(800, scrollSpeed);
         if (!isScrolling)
         {
             isScrolling = true;

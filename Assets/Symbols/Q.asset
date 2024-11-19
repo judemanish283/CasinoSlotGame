@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12050051d086f740b16e67fa6241761, type: 3}
   m_Name: Q
   m_EditorClassIdentifier: 
+  symbolData:
+    SymbolType: 3
+    symbolSprite: {fileID: 21300000, guid: 1813b3e144790b64594b9bc5abcd26cf, type: 3}
+    SymbolVal: 10
   SymbolType: 3
   symbolSprite: {fileID: 21300000, guid: 1813b3e144790b64594b9bc5abcd26cf, type: 3}
   symbolVal: 0
